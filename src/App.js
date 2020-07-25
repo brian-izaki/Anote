@@ -1,17 +1,22 @@
 import React from 'react';
 
+import './style.css';
+
 import Header from './components/Header';
+import Anotacao from './components/Anotacao';
+import ButtonAdd from './components/ButtonAdd';
 
 function App() {
   return (
     <>
-      <Header />
+      <Header titulo="Anotações de Livros"/>
 
       <section className="cards">
-        <div className="card">
-
-        </div>
+        <Anotacao />
+        <Anotacao />
       </section>
+
+      < ButtonAdd />
 
     </>
   );
