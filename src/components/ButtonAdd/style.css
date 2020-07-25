@@ -1,4 +1,8 @@
 .btn-add{
+  background-image: URL('../../imagens/icone_mais.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
   background-color: #ED636D;
   border-radius: 50%;
   height: 60px;
