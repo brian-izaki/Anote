@@ -4,13 +4,13 @@ import "./style.css";
 
 export default function InformacaoFoto(props) {
   return (
-    <div>
+    <div className="informacao-img">
       <p>
         <b> Anotação: </b>
       </p>
-      <div className="imagem">
-        <img src={props.img} alt="imagem" />
-      </div>
+      
+      <img className="pure-img" src={props.img} alt="imagem" />
+      
     </div>
   );
 }
