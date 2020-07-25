@@ -1,0 +1,10 @@
+.btn-add{
+  background-color: #ED636D;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  cursor: pointer;
+}
