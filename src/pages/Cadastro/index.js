@@ -4,8 +4,11 @@ import ButtonCadastro from "../../components/ButtonCadastro";
 
 import './style.css';
 import Input from "../../components/Input";
+import Camera from "../../components/Camera";
 
 export default function Cadastro() {
+  
+  
   return (
     <>
       <Header titulo="Cadastro de anotações" />
@@ -43,6 +46,8 @@ export default function Cadastro() {
             id='observacao'
             type='textarea'
           />
+
+          <Camera />
 
         </div>
         

@@ -1,0 +1,9 @@
+.camera-container > video{
+  width: 100%;
+  background-color: tomato;
+}
+
+.camera-container > canvas{
+  width: 100%;
+  background-color: cadetblue;
+}
