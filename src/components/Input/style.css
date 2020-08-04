@@ -12,6 +12,7 @@ div.pure-control-group > input[type='text']{
 div.pure-control-group > textarea{
   border: 1px solid #807EBF ;
   resize: vertical;
+  min-height: 53px;
   box-shadow: none;
 }
 
