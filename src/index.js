@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './css/pure-min.css';
 import './css/grids-responsive-min.css';
 import './css/global.css';
 import * as serviceWorker from './serviceWorker';
+import Home from './pages/Home';
+import Cadastro from './pages/Cadastro';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch >
+      <Route path="/" component={Home} exact/>
+      <Route path="/cadastro" component={Cadastro}/>
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import './style.css';
 // import imgAdd from '../../imagens/icone_mais.png';
 
@@ -7,8 +7,11 @@ import './style.css';
 export default function ButtonAdd(props){
   return(
     // style={{backgroundImage: `URL(${imgAdd})`}}
-    <div className="btn-add">
+    <Link to="/cadastro">
+      <div className="btn-add">
+      
+      </div>
 
-    </div>
+    </Link>
   )
 }
