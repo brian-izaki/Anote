@@ -1,9 +1,17 @@
-.camera-container > video{
+.camera-container {
+  position: relative;
   width: 100%;
-  background-color: tomato;
+}
+
+.camera-container > video{
+  z-index: 1;
+  width: 100%;
 }
 
 .camera-container > canvas{
+  position: absolute;
+  top: -1;
+  left: 0;
+  z-index: 1;
   width: 100%;
-  background-color: cadetblue;
 }
