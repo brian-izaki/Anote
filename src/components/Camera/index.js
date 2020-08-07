@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ButtonCamera from "./components/ButtonCamera";
+import ButtonCamera from "../ButtonCamera";
 
 import imgCamera from "../../imagens/icone_camera.png";
 import imgSemCamera from "../../imagens/icone_sem_camera.png";

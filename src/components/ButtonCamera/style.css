@@ -1,0 +1,12 @@
+.button-photo {
+  border: none;
+  background-color: #BBBDF2;
+  width: 65px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 5px
+}
+
+.button-photo > div > img{
+  width: 100%;
+} 
