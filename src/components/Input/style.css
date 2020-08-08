@@ -6,7 +6,9 @@
 
 div.pure-control-group > input[type='text']{
   border: 1px solid #807EBF ;
+  line-height: 25px;
   box-shadow: none;
+  margin-bottom: 10px;
 }
 
 div.pure-control-group > textarea{

@@ -137,22 +137,24 @@ export default function Cadastro() {
             label="Livro" 
             id="livro" 
             type="text" 
+            placeholder="Ex: Alice no país das maravilhas"
             value={anotacao.livro}
             onChange={setValue}
           />
-
           <Input 
             label="Tags" 
             id="tags" 
             type="text" 
+            placeholder="Ex: tag1, tag2"
             value={anotacao.tags}
             onChange={setValue}
-          />
+            />
 
           <Input 
             label="Página" 
             id="pagina" 
             type="text" 
+            placeholder="Ex: 95"
             isPage
             value={anotacao.pagina}
             onChange={setValue}
@@ -162,25 +164,27 @@ export default function Cadastro() {
             label="Autor" 
             id="autor" 
             type="text" 
+            placeholder="Ex: Lewis Carroll"
             value={anotacao.autor}
             onChange={setValue}
           />
 
           <Input 
-            label="Observação" 
+            label="Anotação escrita" 
             id="observacao" 
             type="textarea" 
+            placeholder="Ex: Uma menina, um coelho e uma história capazes de fazer qualquer um de nós voltar a sonhar."
             value={anotacao.observacao}
             onChange={setValue}
           />
 
           <div>
             <p>
-              <b>Anotação:</b>
+              <b>Anotação visual:</b>
             </p>
 
             <div className="camera-container">
-              { !estado.hasVideo ? (<p className="info"> Não será cadastrado uma imagem como anotação </p>) : null }
+              { !estado.hasVideo ? (<p className="info"> Não será cadastrado uma anotação </p>) : null }
               <video id="camera" playsInline autoPlay></video>
               <canvas></canvas>
               {

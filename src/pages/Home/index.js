@@ -15,10 +15,12 @@ function Home() {
       <Header titulo="Anotações de Livros"/>
       
       {
-        listaAnotacoes.map((anotacao) => {
-          // console.log('dentro do map', anotacao);
-          return <Anotacao key={anotacao.id} anotacao={anotacao}/>
-        })
+        listaAnotacoes
+          ? listaAnotacoes.map((anotacao) => {
+              // console.log('dentro do map', anotacao);
+              return <Anotacao key={anotacao.id} anotacao={anotacao}/>
+            })
+          : (<p>ainda não há registros</p>)
       }
       
       <ButtonAdd />

@@ -9,27 +9,43 @@ import "./style.css";
 export default function Anotacao({ anotacao }) {  
 
   // console.log('dentro de anotacao', anotacao)
-  
+
+  const mensagem = '😓 Sem informação';
+  const hasTags = anotacao.tags.split(', ')[0]
+
   return (
     <div className="card">
       <Informacao
         tipo="principal"
         nome="Livro"
-        descricao={anotacao.livro}
+        descricao={anotacao.livro || mensagem}
       />
       <Informacao
         tipo="tag"
         nome="Tag"
-        descricaoArray={anotacao.tags.split(', ')}
+        descricaoArray={ hasTags !== '' ? anotacao.tags.split(', ') : [mensagem]}
       />
-      <Informacao tipo="basico" nome="Página" descricao={anotacao.pagina} />
-      <Informacao tipo="basico" nome="Autor" descricao={anotacao.autor} />
+      <Informacao 
+        tipo="basico" 
+        nome="Página" 
+        descricao={anotacao.pagina || mensagem} 
+      />
+      <Informacao 
+        tipo="basico" 
+        nome="Autor" 
+        descricao={anotacao.autor || mensagem} 
+      />
       <Informacao
         tipo="basico"
         nome="Observação"
-        descricao={anotacao.observacao}
+        descricao={anotacao.observacao || mensagem}
       />
-      < InformacaoFoto src={anotacao.anotacaoImagem} alt="imagem"/>
+
+      {
+        anotacao.anotacaoImagem 
+          ? <InformacaoFoto src={anotacao.anotacaoImagem} alt="imagem"/>
+          : null
+      }
 
     </div>
   );
