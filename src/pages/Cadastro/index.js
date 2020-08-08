@@ -129,7 +129,7 @@ export default function Cadastro() {
 
   return (
     <>
-      <Header titulo="Cadastro de anotações" />
+      <Header> Cadastro de anotações </Header>
 
       <form className="container pure-form pure-form-stacked">
         <div className="container inputs">
@@ -180,11 +180,11 @@ export default function Cadastro() {
 
           <div>
             <p>
-              <b>Anotação visual:</b>
+              <b>Anotação em imagem:</b>
             </p>
 
             <div className="camera-container">
-              { !estado.hasVideo ? (<p className="info"> Não será cadastrado uma anotação </p>) : null }
+              { !estado.hasVideo ? (<p className="info"> Não será cadastrado uma anotação em imagem</p>) : null }
               <video id="camera" playsInline autoPlay></video>
               <canvas></canvas>
               {

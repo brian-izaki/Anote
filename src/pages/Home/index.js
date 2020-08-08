@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <>
-      <Header titulo="Anotações de Livros"/>
+      <Header principal> Anotações de Livros </Header>
       
       {
         listaAnotacoes

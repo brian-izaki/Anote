@@ -15,11 +15,12 @@
 }
 
 .tag{
-  box-sizing: border-box;
   background-color: #BBBDF2;
   border-radius: 50px;
   font-weight: bold;
   padding: 5px 15px;
-  margin-right: 10px;
+  margin: 0 5px 5px;
   line-height: 30px;
+  display: inline-block;
 }
+
