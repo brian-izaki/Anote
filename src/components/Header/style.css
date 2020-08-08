@@ -1,10 +1,45 @@
 .header{
   background-color: #807EBF;
-  padding: 15px 0;
-  text-align: center;
+  padding: 5px 0;
   color: #FFFFFF;
 }
 
-.header h1{
+.header > div {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'link titulo';
+  max-width: 900px;
+  margin: 10px auto;
+}
+
+.header > div > h1{
+  /* position: relative; */
+  margin: 0;
   font-size: 1.5rem;
+  text-align: center;
+}
+
+.header > div > a > img{
+  width: 30px;
+  /* position: absolute; */
+}
+
+.titulo{
+  grid-area: titulo;
+}
+
+.link{
+  grid-area: link;
+}
+
+@media (max-width: 900px){
+  .header > div{
+    margin: 20px;
+  }
+  
+  /* .header > div > a > img{
+    left: 20px;
+  } */
 }
