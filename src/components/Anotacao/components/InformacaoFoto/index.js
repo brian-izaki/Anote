@@ -9,7 +9,8 @@ export default function InformacaoFoto(props) {
         <b> Anotação: </b>
       </p>
       
-      <img className="pure-img" src={props.img} alt="imagem" />
+      <img className="pure-img" src={props.img} alt={props.alt} />
+      
       
     </div>
   );

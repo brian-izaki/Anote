@@ -11,7 +11,19 @@ import imgSemCamera from "../../imagens/icone_sem_camera.png";
 import imgLixo from "../../imagens/icone_lixo.png";
 import imgObturador from "../../imagens/icone_obturador.png";
 
+// import Anotacoes from '../../model/Anotacoes';
+import AnotacoesDAO from "../../DAO/AnotacoesDAO";
+
 export default function Cadastro() {
+  const [anotacao, setAnotacao] = useState({
+    id: new Date().getTime(),
+    livro: '',
+    tags: '',
+    pagina: '',
+    autor: '',
+    observacao: '',
+    anotacaoImagem: '',
+  });
   const [video, setVideo] = useState({});
   const [estado, setEstado] = useState({ hasVideo: false, hasPicture: false });
   const canvas = document.querySelector("canvas");
@@ -30,7 +42,7 @@ export default function Cadastro() {
 
   async function startVideo() {
     // funcionalidades do video
-    function handleSucces(stream) {
+    function handleSuccess(stream) {
       console.log("sucesso");
       window.stream = stream;
       video.srcObject = stream;
@@ -49,7 +61,7 @@ export default function Cadastro() {
         audio: false,
         video: true,
       });
-      handleSucces(stream);
+      handleSuccess(stream);
     } catch (e) {
       handleErrors(e);
     }
@@ -66,6 +78,7 @@ export default function Cadastro() {
     } else {
       startVideo();
     }
+    setEstado({...estado, hasVideo: !estado.hasVideo}) 
   }
 
   function createPicture(e) {
@@ -74,6 +87,11 @@ export default function Cadastro() {
     canvas.width = video.clientWidth;
     canvas.height = video.clientHeight;
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // a escolha da extensão .jpeg é por causa do tamanho da imagem.
+    const image = canvas.toDataURL('image/jpeg', 0.2);
+    setAnotacao({...anotacao, anotacaoImagem: image})
+    // console.log(image)
   }
 
   function clearPicture(e) {
@@ -84,6 +102,25 @@ export default function Cadastro() {
 
   function cadastrar() {
     if (estado.hasVideo) stopVideo(video.srcObject);
+    
+    const tagsList = anotacao.tags.split(', ') 
+    setAnotacao({...anotacao, 'tags': tagsList})
+    console.log(anotacao)
+    const dao = new AnotacoesDAO();
+    const dadosDoStorage = dao.listar();
+    console.log(Array.isArray(dadosDoStorage))
+
+    dadosDoStorage.push(anotacao);
+
+    dao.cadastrar(dadosDoStorage)
+
+  }
+
+  function setValue(e){
+    const idInput = e.target.getAttribute('id');
+    const valorAtributo = e.target.value;
+
+    setAnotacao({...anotacao, [idInput]: valorAtributo})
   }
 
   function cancelar() {
@@ -96,15 +133,46 @@ export default function Cadastro() {
 
       <form className="container pure-form pure-form-stacked">
         <div className="container inputs">
-          <Input name="Livro" id="livro" type="text" />
+          <Input 
+            label="Livro" 
+            id="livro" 
+            type="text" 
+            value={anotacao.livro}
+            onChange={setValue}
+          />
 
-          <Input name="Tags" id="tags" type="text" />
+          <Input 
+            label="Tags" 
+            id="tags" 
+            type="text" 
+            value={anotacao.tags}
+            onChange={setValue}
+          />
 
-          <Input name="Página" id="pagina" type="text" isPage />
+          <Input 
+            label="Página" 
+            id="pagina" 
+            type="text" 
+            isPage
+            value={anotacao.pagina}
+            onChange={setValue}
+          />
 
-          <Input name="Autor" id="autor" type="text" />
+          <Input 
+            label="Autor" 
+            id="autor" 
+            type="text" 
+            value={anotacao.autor}
+            onChange={setValue}
+          />
 
-          <Input name="Observação" id="observacao" type="textarea" />
+          <Input 
+            label="Observação" 
+            id="observacao" 
+            type="textarea" 
+            value={anotacao.observacao}
+            onChange={setValue}
+          />
 
           <div>
             <p>
@@ -132,7 +200,10 @@ export default function Cadastro() {
                 onClick={(e) => {
                   e.preventDefault();
                   clearPicture(e);
-                  setEstado({ ...estado, hasVideo: !estado.hasVideo });
+                  console.log('anotacao', anotacao)
+                  console.log('estado', estado)
+                  console.log('video', video)
+                  
                   toogleVideo();
                 }}
                 img={estado.hasVideo ? imgSemCamera : imgCamera}

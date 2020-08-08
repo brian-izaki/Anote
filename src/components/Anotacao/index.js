@@ -4,29 +4,33 @@ import Informacao from '../Informacao';
 import InformacaoFoto from "../InformacaoFoto";
 
 import "./style.css";
-import img from '../../imagens/imgTeste.jpeg';
+//import AnotacaoDAO from '../../DAO/AnotacoesDAO';
 
-export default function Anotacao(props) {
+export default function Anotacao({ anotacao }) {  
+
+  // console.log('dentro de anotacao', anotacao)
+  
   return (
     <div className="card">
       <Informacao
         tipo="principal"
         nome="Livro"
-        descricao="Oportunidades invisíveis Oportun idades invisíveis"
+        descricao={anotacao.livro}
       />
       <Informacao
         tipo="tag"
         nome="Tag"
-        descricaoArray={["ola", "tchau", "vindo"]}
+        descricaoArray={anotacao.tags.split(', ')}
       />
-      <Informacao tipo="basico" nome="Página" descricao="39" />
-      <Informacao tipo="basico" nome="Autor" descricao="Paulo Rogério Nunes" />
+      <Informacao tipo="basico" nome="Página" descricao={anotacao.pagina} />
+      <Informacao tipo="basico" nome="Autor" descricao={anotacao.autor} />
       <Informacao
         tipo="basico"
         nome="Observação"
-        descricao="diversidade é um elemento importante para empreendimentos inovadores"
+        descricao={anotacao.observacao}
       />
-      < InformacaoFoto img={img} alt="imagem"/>
+      < InformacaoFoto src={anotacao.anotacaoImagem} alt="imagem"/>
+
     </div>
   );
 }
