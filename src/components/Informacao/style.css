@@ -1,6 +1,6 @@
 .informacao{
   display: flex;
-  font-size: 1.125rem;
+  font-size: var(--label-size);
   flex-flow: row nowrap;
   align-items: baseline;
 }
@@ -15,7 +15,7 @@
 }
 
 .tag{
-  background-color: #BBBDF2;
+  background-color: var(--bg-color-tags);
   border-radius: 50px;
   font-weight: bold;
   padding: 5px 15px;

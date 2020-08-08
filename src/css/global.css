@@ -1,3 +1,8 @@
+:root{
+  --bg-color-tags: #BBBDF2;
+  --label-size: 1.125rem;
+}
+
 body{
   background-color: #E6EFFD;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
