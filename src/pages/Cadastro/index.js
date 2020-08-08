@@ -49,18 +49,21 @@ export default function Cadastro() {
     }
 
     function handleErrors(error) {
-      console.log("Erro: ", error.message);
+      console.log("Erro: ", error);
     }
 
     // permissão de acesso e constraints do que será acessado
     // retorna uma promisse
     // método utilizando async e await
+
     try {
-      // stream rescepe uma promessa respondida pois "await" por ela
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const constraints = {
         audio: false,
-        video: true,
-      });
+        // video: { { facingMode: "user" } } // é para acesso da camera frontal. por padrão era ela
+        video: { facingMode: { exact: "enviroment" } },
+      }
+      // stream rescepe uma promessa respondida pois "await" por ela
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       handleSuccess(stream);
     } catch (e) {
       handleErrors(e);
@@ -203,11 +206,7 @@ export default function Cadastro() {
               <ButtonCamera
                 onClick={(e) => {
                   e.preventDefault();
-                  clearPicture(e);
-                  console.log('anotacao', anotacao)
-                  console.log('estado', estado)
-                  console.log('video', video)
-                  
+                  clearPicture(e);              
                   toogleVideo();
                 }}
                 img={estado.hasVideo ? imgSemCamera : imgCamera}
