@@ -59,8 +59,10 @@ export default function Cadastro() {
     try {
       const constraints = {
         audio: false,
+        video: true,
         // video: { { facingMode: "user" } } // é para acesso da camera frontal. por padrão era ela
-        video: { facingMode: { exact: "enviroment" } },
+        // video: { facingMode: { exact: "environment" } } ,
+
       }
       // stream rescepe uma promessa respondida pois "await" por ela
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
