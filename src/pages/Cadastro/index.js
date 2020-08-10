@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import "./style.css";
 
 import imgCamera from "../../imagens/icone_camera.png";
-import imgSemCamera from "../../imagens/icone_sem_camera.png";
+import imgNegaCamera from "../../imagens/icone_sem_camera.png";
 import imgLixo from "../../imagens/icone_lixo.png";
 import imgObturador from "../../imagens/icone_obturador.png";
 
@@ -25,13 +25,37 @@ export default function Cadastro() {
     anotacaoImagem: '',
   });
   const [video, setVideo] = useState({});
-  const [estado, setEstado] = useState({ hasVideo: false, hasPicture: false });
+  const [devicesList, setDevicesList] = useState([]);
+  const [estado, setEstado] = useState({ 
+    hasVideo: false, 
+    hasPicture: false,  
+  });
+  const [deviceAtual, setDeviceAtual] = useState({
+    id: '', 
+    index: 0,
+  });
   const canvas = document.querySelector("canvas");
   
   useEffect(() => {
     // o video é pego primeiro para que o canvas pegar a referencia
     setVideo(document.querySelector("#camera"));
   }, []);
+  
+  async function getDevices(){
+    const devices = await navigator.mediaDevices.enumerateDevices();
+
+    const arrayDevice = [];
+    console.log("dentro do forEach", devices);
+    devices.forEach((device) => {
+      if (device.kind === "videoinput") {
+        arrayDevice.push(device.deviceId);
+      }
+    });
+    
+    setDevicesList(arrayDevice);
+    setDeviceAtual({...deviceAtual, id: arrayDevice[0]});
+    console.log("Brian teste", deviceAtual);
+  }
 
   function stopVideo(stream) {
     const videoTracks = stream.getVideoTracks();
@@ -41,6 +65,13 @@ export default function Cadastro() {
   }
 
   async function startVideo() {
+    const hasDevices = Boolean(devicesList.length);
+    if(!hasDevices){
+      getDevices();
+      console.log('tem dispositivo?', devicesList)
+
+    }
+
     // funcionalidades do video
     function handleSuccess(stream) {
       console.log("sucesso");
@@ -53,15 +84,10 @@ export default function Cadastro() {
     }
 
     // permissão de acesso e constraints do que será acessado
-    // retorna uma promisse
-    // método utilizando async e await
-
     try {
       const constraints = {
         audio: false,
-        video: true,
-        // video: { { facingMode: "user" } } // é para acesso da camera frontal. por padrão era ela
-        // video: { facingMode: { exact: "environment" } } ,
+        video: {deviceId: deviceAtual.id},
 
       }
       // stream rescepe uma promessa respondida pois "await" por ela
@@ -75,6 +101,26 @@ export default function Cadastro() {
     //   .getUserMedia(constraints)
     //   .then(handleSucces)
     //   .catch(handleErrors);
+  }
+
+  function switchCamera(){
+    let indice = deviceAtual.index + 1;
+
+    // caso o indice no array exista retorna true.
+    const hasDevice = Boolean(devicesList[indice]);
+    console.log(hasDevice);
+
+    if (hasDevice) {
+      setDeviceAtual({ id: devicesList[indice], index: indice })
+    } else {
+      setDeviceAtual({ id: devicesList[0], index: 0 })
+    }
+
+    // console.log("video atual", deviceAtual);
+    // console.log("lista de video", devicesList);
+
+    stopVideo(video.srcObject);
+    startVideo();
   }
 
   function toogleVideo() {
@@ -199,6 +245,14 @@ export default function Cadastro() {
                       onClick={estado.hasPicture ? clearPicture : createPicture}
                       img={estado.hasPicture ? imgLixo : imgObturador}
                     />
+                    <ButtonCamera
+                      onClick={(e) => {
+                        e.preventDefault();
+                        switchCamera()
+                      }}
+                      img={ imgLixo }
+                    />
+
                   </div>
                 ) : null
               }
@@ -211,7 +265,7 @@ export default function Cadastro() {
                   clearPicture(e);              
                   toogleVideo();
                 }}
-                img={estado.hasVideo ? imgSemCamera : imgCamera}
+                img={estado.hasVideo ? imgNegaCamera : imgCamera}
               />
             </div>
           </div>
