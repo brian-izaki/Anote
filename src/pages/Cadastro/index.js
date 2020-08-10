@@ -10,6 +10,7 @@ import imgCamera from "../../imagens/icone_camera.png";
 import imgNegaCamera from "../../imagens/icone_sem_camera.png";
 import imgLixo from "../../imagens/icone_lixo.png";
 import imgObturador from "../../imagens/icone_obturador.png";
+import imgVirar from "../../imagens/icone_virar.png";
 
 // import Anotacoes from '../../model/Anotacoes';
 import AnotacoesDAO from "../../DAO/AnotacoesDAO";
@@ -240,17 +241,18 @@ export default function Cadastro() {
               <canvas></canvas>
               {
                 estado.hasVideo ? (
-                  <div className="btn-picture">
+                  <div className="container-picture">
                     <ButtonCamera
                       onClick={estado.hasPicture ? clearPicture : createPicture}
                       img={estado.hasPicture ? imgLixo : imgObturador}
                     />
                     <ButtonCamera
+                      className="btn-virar"
                       onClick={(e) => {
                         e.preventDefault();
                         switchCamera()
                       }}
-                      img={ imgLixo }
+                      img={ imgVirar }
                     />
 
                   </div>

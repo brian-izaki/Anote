@@ -10,3 +10,8 @@
 .button-photo > div > img{
   width: 100%;
 } 
+
+.btn-virar{
+  position: absolute;
+  right: 10px;
+}
