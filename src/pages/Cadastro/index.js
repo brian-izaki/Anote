@@ -41,22 +41,6 @@ export default function Cadastro() {
     // o video é pego primeiro para que o canvas pegar a referencia
     setVideo(document.querySelector("#camera"));
   }, []);
-  
-  async function getDevices(){
-    const devices = await navigator.mediaDevices.enumerateDevices();
-
-    const arrayDevice = [];
-    console.log("dentro do forEach", devices);
-    devices.forEach((device) => {
-      if (device.kind === "videoinput") {
-        arrayDevice.push(device.deviceId);
-      }
-    });
-    
-    setDevicesList(arrayDevice);
-    setDeviceAtual({...deviceAtual, id: arrayDevice[0]});
-    console.log("Brian teste", deviceAtual);
-  }
 
   function stopVideo(stream) {
     const videoTracks = stream.getVideoTracks();
@@ -67,15 +51,14 @@ export default function Cadastro() {
 
   async function startVideo() {
     const hasDevices = Boolean(devicesList.length);
+    
     if(!hasDevices){
       getDevices();
-      console.log('tem dispositivo?', devicesList)
-
     }
 
     // funcionalidades do video
     function handleSuccess(stream) {
-      console.log("sucesso");
+      // console.log("sucesso");
       window.stream = stream;
       video.srcObject = stream;
     }
@@ -104,12 +87,30 @@ export default function Cadastro() {
     //   .catch(handleErrors);
   }
 
+  async function getDevices(){
+    const devices = await navigator.mediaDevices.enumerateDevices();
+
+    const arrayDevice = [];
+    
+    devices.forEach((device) => {
+      if (device.kind === "videoinput") {
+        arrayDevice.push(device.deviceId);
+      }
+    });
+    
+    console.log(arrayDevice)
+    console.log(devices)
+
+    setDevicesList(arrayDevice);
+    setDeviceAtual({id: arrayDevice[0], index: 0});
+  }
+
   function switchCamera(){
     let indice = deviceAtual.index + 1;
 
     // caso o indice no array exista retorna true.
     const hasDevice = Boolean(devicesList[indice]);
-    console.log(hasDevice);
+    // console.log(hasDevice);
 
     if (hasDevice) {
       setDeviceAtual({ id: devicesList[indice], index: indice })
