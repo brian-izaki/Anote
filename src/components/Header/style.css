@@ -1,5 +1,5 @@
 .header{
-  background-color: #807EBF;
+  background-color: var(--bg-color-header);
   padding: 5px 0;
   color: #FFFFFF;
 }
