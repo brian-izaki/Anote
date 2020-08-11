@@ -2,11 +2,12 @@ import React from "react";
 
 import Informacao from '../Informacao';
 import InformacaoFoto from "../InformacaoFoto";
-
 import "./style.css";
-//import AnotacaoDAO from '../../DAO/AnotacoesDAO';
+import ButtonCamera from "../ButtonCamera";
 
-export default function Anotacao({ anotacao }) {  
+import imgLixo from '../../imagens/icone_lixo.png';
+
+export default function Anotacao({ anotacao, deletarAnotacao }) {  
 
   // console.log('dentro de anotacao', anotacao)
 
@@ -15,6 +16,10 @@ export default function Anotacao({ anotacao }) {
 
   return (
     <div className="card">
+
+      <ButtonCamera onClick={deletarAnotacao} className='btn-excluir-card' img={imgLixo}/>
+
+      <input type="hidden" value='0'/>
       <Informacao
         tipo="principal"
         nome="Livro"

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.css';
 
-export default function ButtonCamera({ onClick, img, className }){
+export default function ButtonCamera({children, onClick, img, className }){
   return(
     <button className={`button-photo ${className}`} onClick={onClick}> 
       <div>

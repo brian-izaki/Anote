@@ -13,7 +13,7 @@ import imgObturador from "../../imagens/icone_obturador.png";
 import imgVirar from "../../imagens/icone_virar.png";
 
 // import Anotacoes from '../../model/Anotacoes';
-import AnotacoesDAO from "../../DAO/AnotacoesDAO";
+import AnotacoesDAO from "../../DAO/AnotacaoDAO";
 
 export default function Cadastro() {
   const [anotacao, setAnotacao] = useState({
