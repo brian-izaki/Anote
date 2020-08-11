@@ -102,7 +102,7 @@ export default function Cadastro() {
     console.log(devices)
 
     setDevicesList(arrayDevice);
-    setDeviceAtual({id: arrayDevice[0], index: 0});
+    setDeviceAtual({...deviceAtual, id: arrayDevice[0]});
   }
 
   function switchCamera(){
@@ -123,6 +123,7 @@ export default function Cadastro() {
 
     stopVideo(video.srcObject);
     startVideo();
+    
   }
 
   function toogleVideo() {
@@ -158,10 +159,9 @@ export default function Cadastro() {
     
     const tagsList = anotacao.tags.split(', ') 
     setAnotacao({...anotacao, 'tags': tagsList})
-    console.log(anotacao)
+
     const dao = new AnotacoesDAO();
     const dadosDoStorage = dao.listar();
-    console.log(Array.isArray(dadosDoStorage))
 
     dadosDoStorage.push(anotacao);
 
@@ -238,6 +238,7 @@ export default function Cadastro() {
 
             <div className="camera-container">
               { !estado.hasVideo ? (<p className="info"> Não será cadastrado uma anotação em imagem</p>) : null }
+              
               <video id="camera" playsInline autoPlay></video>
               <canvas></canvas>
               {
@@ -272,6 +273,7 @@ export default function Cadastro() {
               />
             </div>
           </div>
+
         </div>
 
         <div>
