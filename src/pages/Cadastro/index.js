@@ -151,7 +151,11 @@ export default function Cadastro() {
   function clearPicture(e) {
     e.preventDefault();
     setEstado({ ...estado, hasPicture: false });
+    video.src = '';
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    
   }
 
   function cadastrar() {
