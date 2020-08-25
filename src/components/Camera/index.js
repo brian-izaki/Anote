@@ -1,67 +1,101 @@
 import React, { useEffect, useState } from "react";
 import ButtonCamera from "../ButtonCamera";
 
+
 import imgCamera from "../../imagens/icone_camera.png";
-import imgSemCamera from "../../imagens/icone_sem_camera.png";
+import imgNegaCamera from "../../imagens/icone_sem_camera.png";
+
 
 import "./style.css";
+import CameraOptions from "./components/CameraOptions";
 
 export default function Camera() {
-  const [video, setVideo] = useState({});
-  const [estado, setEstado] = useState({ videoOn: true });
   const canvas = document.querySelector("canvas");
-
-  /**
-   * Necessário refatorar
-   * o componente renderiza duas vezes
-   * (provavelmente por causa do setState dentro do useEffect)
-   */
-  ////useEffect(() => {
-  // useEffect renderiza antes de todo o componente
-  // por isso precisa que estas variaveis fiquem dentro dele
+  const [video, setVideo] = useState({});
+  const [devicesList, setDevicesList] = useState([]);
+  const [deviceAtual, setDeviceAtual] = useState({
+    id: '', 
+    index: 0,
+  });
+  const [estado, setEstado] = useState({ 
+    hasVideo: false, 
+    hasPicture: false,  
+  });
 
   useEffect(() => {
     setVideo(document.querySelector("#camera"));
   }, []);
 
-  function ativaDesativa() {
-    // funcionalidades do video
-    const constraints = {
-      audio: false,
-      video: true,
-    };
+  async function getDevices(){
+    const devices = await navigator.mediaDevices.enumerateDevices();
 
-    function handleSucces(stream) {
-      console.log("sucesso");
+    const arrayDevice = [];
+    
+    devices.forEach((device) => {
+      if (device.kind === "videoinput") {
+        arrayDevice.push(device.deviceId);
+      }
+    });
+    
+    console.log(arrayDevice)
+    console.log(devices)
+
+    setDevicesList(arrayDevice);
+    setDeviceAtual({...deviceAtual, id: arrayDevice[0]});
+  }
+
+  async function startVideo() {
+    const hasDevices = Boolean(devicesList.length);
+    
+    if(!hasDevices){
+      getDevices();
+    }
+
+    // funcionalidades do video
+    function handleSuccess(stream) {
+      // console.log("sucesso");
       window.stream = stream;
       video.srcObject = stream;
     }
 
     function handleErrors(error) {
-      console.log("Erro: ", error.message);
+      console.log("Erro: ", error);
     }
 
-    function stopVideo(stream) {
-      const videoTracks = stream.getVideoTracks();
-      const mediaAtual = videoTracks[0];
+    // permissão de acesso e constraints do que será acessado
+    try {
+      const constraints = {
+        audio: false,
+        video: {deviceId: deviceAtual.id},
 
-      mediaAtual.stop();
-    }
-
-    if (estado.videoOn) {
-      // permissão de acesso e constraints do que será acessado
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then(handleSucces)
-        .catch(handleErrors);
-    } else {
-      stopVideo(video.srcObject);
+      }
+      // stream rescepe uma promessa respondida pois "await" por ela
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      handleSuccess(stream);
+    } catch (e) {
+      handleErrors(e);
     }
   }
-  ////}, [estado.videoOn, video, video.srcObject]);
+  
+  function stopVideo(stream) {
+    const videoTracks = stream.getVideoTracks();
+    const mediaAtual = videoTracks[0];
+
+    mediaAtual.stop();
+  }
+
+  function toogleVideo() {
+    if (estado.hasVideo) {
+      stopVideo(video.srcObject);
+    } else {
+      startVideo();
+    }
+    setEstado({...estado, hasVideo: !estado.hasVideo}) 
+  }
 
   function createPicture(e) {
     e.preventDefault();
+    setEstado({ ...estado, hasPicture: true });
     canvas.width = video.clientWidth;
     canvas.height = video.clientHeight;
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -69,30 +103,67 @@ export default function Camera() {
 
   function clearPicture(e) {
     e.preventDefault();
+    setEstado({ ...estado, hasPicture: false });
+    video.src = '';
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    
+  }
+
+  function switchCamera(){
+    let indice = deviceAtual.index + 1;
+
+    // caso o indice no array exista retorna true.
+    const hasDevice = Boolean(devicesList[indice]);
+    // console.log(hasDevice);
+
+    if (hasDevice) {
+      setDeviceAtual({ id: devicesList[indice], index: indice })
+    } else {
+      setDeviceAtual({ id: devicesList[0], index: 0 })
+    }
+
+    // console.log("video atual", deviceAtual);
+    // console.log("lista de video", devicesList);
+
+    stopVideo(video.srcObject);
+    startVideo();
+    
   }
 
   return (
     <div>
-      <p>
-        <b>Anotação:</b>
-      </p>
-      <div className="camera-container">
-        <video id="camera" playsInline autoPlay></video>
-        <canvas></canvas>
-      </div>
       <div>
+        <p>
+          <b>Anotação em imagem:</b>
+        </p>
+
+        <div className="camera-container">
+          {!estado.hasVideo ? (
+            <p className="info"> Não será cadastrado uma anotação em imagem</p>
+          ) : null}
+
+          <video id="camera" playsInline autoPlay></video>
+          <canvas></canvas>
+          {estado.hasVideo ? 
+            <CameraOptions 
+              estado={estado} 
+              clearPicture={clearPicture} 
+              createPicture={createPicture} 
+              switchCamera={switchCamera}/>   
+            : null
+          }
+        </div>
+
         <div>
-          <ButtonCamera onClick={clearPicture} img={imgSemCamera} />
-          <ButtonCamera onClick={createPicture} img={imgCamera} />
           <ButtonCamera
             onClick={(e) => {
               e.preventDefault();
               clearPicture(e);
-              setEstado({ videoOn: !estado.videoOn });
-              ativaDesativa();
+              toogleVideo()
             }}
-            img={imgCamera}
+            img={estado.hasVideo ? imgNegaCamera : imgCamera}
           />
         </div>
       </div>

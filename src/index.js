@@ -7,12 +7,14 @@ import './css/global.css';
 import * as serviceWorker from './serviceWorker';
 import Home from './pages/Home';
 import Cadastro from './pages/Cadastro';
+import Teste from './pages/Teste';
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch >
       <Route path="/" component={Home} exact/>
       <Route path="/cadastro" component={Cadastro}/>
+      <Route path="/teste" component={Teste}/>
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
