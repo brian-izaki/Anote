@@ -203,7 +203,7 @@ export default function Cadastro() {
             label="Tags" 
             id="tags" 
             type="text" 
-            placeholder="Ex: Conto de fadas, nonsense"
+            placeholder="Ex: Conto de fadas, Nonsense"
             value={anotacao.tags}
             onChange={setValue}
           />
