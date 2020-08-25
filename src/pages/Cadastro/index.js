@@ -198,14 +198,15 @@ export default function Cadastro() {
             value={anotacao.livro}
             onChange={setValue}
           />
+          
           <Input 
             label="Tags" 
             id="tags" 
             type="text" 
-            placeholder="Ex: tag1, tag2"
+            placeholder="Ex: Conto de fadas, nonsense"
             value={anotacao.tags}
             onChange={setValue}
-            />
+          />
 
           <Input 
             label="Página" 
