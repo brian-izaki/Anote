@@ -1,0 +1,23 @@
+.button-photo {
+  border: none;
+  background-color: var(--bg-color-tags);
+  width: 65px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 5px
+}
+
+.button-photo > div > img{
+  width: 100%;
+} 
+
+.btn-virar{
+  position: absolute;
+  right: 10px;
+}
+
+.btn-excluir-card{
+  padding: 5px 10px;
+  margin: 0;
+  width: 55px;
+}

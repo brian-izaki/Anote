@@ -1,0 +1,34 @@
+{
+  "short_name": "Anote",
+  "name": "Anotações de livros",
+  "icons": [
+    {
+      "src": "logo_193x193.png",
+      "type": "image/png",
+      "sizes": "193x193",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo_384x384.png",
+      "type": "image/png",
+      "sizes": "384x384",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo_512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo_768x768.png",
+      "type": "image/png",
+      "sizes": "768x768",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#E6EFFD"
+}

@@ -1,0 +1,21 @@
+.btn-add{
+  background-image: URL('../../imagens/icone_mais.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-color: #ED636D;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  cursor: pointer;
+}
+
+@media (min-width: 900px){
+  .btn-add{
+    right: calc(100% - 95%);
+    bottom: 50px;
+  }
+}

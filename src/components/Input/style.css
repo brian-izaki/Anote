@@ -1,0 +1,25 @@
+/* .input{
+  box-sizing: border-box;
+  display: flex;
+  margin: 10px 0;
+} */
+
+div.pure-control-group > input[type='text']{
+  border: 1px solid #807EBF ;
+  line-height: 25px;
+  box-shadow: none;
+  margin-bottom: 10px;
+}
+
+div.pure-control-group > textarea{
+  border: 1px solid #807EBF ;
+  resize: vertical;
+  min-height: 53px;
+  box-shadow: none;
+}
+
+@media (max-width: 900px){
+  div.pure-control-group > textarea{
+    height: 100px;
+  }
+}

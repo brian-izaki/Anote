@@ -1,0 +1,7 @@
+.informacao-img img{
+  margin: 0 auto;
+}
+
+.informacao-img > p{
+  font-size: var(--label-size);
+}
