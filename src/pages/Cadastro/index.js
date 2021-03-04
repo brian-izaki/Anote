@@ -143,7 +143,7 @@ export default function Cadastro() {
     canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 
     // a escolha da extensão .jpeg é por causa do tamanho da imagem.
-    const image = canvas.toDataURL('image/jpeg', 0.2);
+    const image = canvas.toDataURL('image/jpeg', 0.7);
     setAnotacao({...anotacao, anotacaoImagem: image})
     // console.log(image)
   }
